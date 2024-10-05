@@ -157,7 +157,7 @@ family_poverty_2009_2019 <- map_dfr(years, ~{
     state = "HI",
     county = "Honolulu",
     year = .x,
-    survey = "acs1"
+    survey = "acs5"
   )
 }, .id = "year")
 ```
