@@ -260,12 +260,11 @@ Directions:
 
 Investigating (insert variable here) on Oahu at the census tract level.
 
-```{r, message=FALSE, warning=FALSE, results='hide'}
-oahu_foreign_born_population <- get_acs(
+```{r, message=FALSE, warning=FALSE, results="hide"}
+iowa_foreign_born_population <- get_acs(
   geography = "tract",
   variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
-  state = "HI",
-  county = "Honolulu",
+  state = "IA",
   geometry = TRUE,
   output = "wide",
   year = 2022
@@ -275,8 +274,8 @@ oahu_foreign_born_population <- get_acs(
 
 ### Challenge: Mapping
 
-```{r, message=FALSE, warning=FALSE, results='hide'}
-foreign_born_population_map <- ggplot(oahu_foreign_born_population) +
+```{r, message=FALSE, warning=FALSE, results="hide"}
+foreign_born_population_map <- ggplot(iowa_foreign_born_population) +
   geom_sf_interactive(
     aes(
       fill = percent_of_foreign_born_population_by_householdE,
@@ -334,7 +333,24 @@ Exploring the relationship between (insert variable here) and (insert variable h
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
+oahu_foreign_born_total_household_income <- get_acs(
+  geography = "tract",
+  variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P",
+                percent_of_total_household_income = "DP03_0051P"),
+  state = "HI",
+  county = "Honolulu",
+  #geometry = TRUE,
+  output = "wide",
+  year = 2021
+) %>% 
+  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 
+
+ggplot(oahu_family_poverty_college_education, aes(x = percent_of_foreign_born_population_by_household, y = percent_of_total_household_incomeE)) +
+  geom_point() +
+  geom_smooth() +
+  stat_cor() +
+  theme_minimal()
 ```
 
 ### Challenge: Describe what you found
