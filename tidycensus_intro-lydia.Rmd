@@ -262,6 +262,21 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
+iowa_foreign_born_population <- get_acs(
+  geography = "tract",
+  variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
+  state = "IA",
+  geometry = TRUE,
+  output = "wide",
+  year = 2022) %>% 
+  
+dplyr::mutate(NAME = gsub("Census Tract 4901; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>%
+
+dplyr::mutate(NAME = gsub("Census Tract 4902; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
+
+dplyr::mutate(NAME = gsub("Census Tract 4903; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
+  
+dplyr::mutate(NAME = gsub("Census Tract 4904; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME))
 
 ```
 
@@ -269,7 +284,18 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
+foreign_born_population_map <- ggplot(iowa_foreign_born_population) +
+  geom_sf_interactive(
+    aes(
+      fill = percent_of_foreign_born_population_by_householdE,
+      tooltip = paste(NAME, ": ", percent_of_foreign_born_population_by_householdE, "%"),
+      data_id = NAME
+    )
+  ) +
+  scale_fill_viridis_c(option = "magma") +
+  theme_void() 
 
+girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 ```
 
 ### Challenge: Time Series

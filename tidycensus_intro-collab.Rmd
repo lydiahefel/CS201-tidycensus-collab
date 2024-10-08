@@ -261,20 +261,29 @@ Directions:
 Investigating (insert variable here) on Oahu at the census tract level.
 
 ```{r, message=FALSE, warning=FALSE, results="hide"}
+
 iowa_foreign_born_population <- get_acs(
   geography = "tract",
   variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
   state = "IA",
   geometry = TRUE,
   output = "wide",
-  year = 2022
-) %>% 
-  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900") # Tract in Northwestern Hawaiian Islands that makes map very small and Mamala Bay Golf Course that has %100 percent of families living below the poverty line
+  year = 2022) %>% 
+  
+dplyr::mutate(NAME = gsub("Census Tract 4901; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>%
+
+dplyr::mutate(NAME = gsub("Census Tract 4902; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
+
+dplyr::mutate(NAME = gsub("Census Tract 4903; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
+  
+dplyr::mutate(NAME = gsub("Census Tract 4904; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME))
+
 ```
 
 ### Challenge: Mapping
 
 ```{r, message=FALSE, warning=FALSE, results="hide"}
+
 foreign_born_population_map <- ggplot(iowa_foreign_born_population) +
   geom_sf_interactive(
     aes(
