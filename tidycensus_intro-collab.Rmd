@@ -293,8 +293,39 @@ girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 ### Challenge: Time Series
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+years <- 2010:2019
+names(years) <- years
+
+foreign_born_2009_2019 <- map_dfr(years, ~{
+  get_acs(
+    geography = "county",
+    variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
+    state = "HI",
+    county = "Honolulu",
+    year = .x,
+    survey = "acs1"
+  )
+}, .id = "year")
 
 
+ggplot(foreign_born_2009_2019, aes(x = year, y = estimate, group = 1)) + 
+  geom_line() + 
+  geom_point()
+```
+
+```{r}
+ggplot(foreign_born_2009_2019, aes(x = year, y = estimate, group = 1)) + 
+  geom_ribbon(aes(ymax = estimate + moe, ymin = estimate - moe), 
+              fill = "steelblue",
+              alpha = 0.4) + 
+  geom_line(color = "steelblue") + 
+  geom_point(color = "steelblue", size = 2) + 
+  theme_minimal() + 
+  #scale_y_continuous(labels = label_dollar(scale = .001, suffix = "k")) + 
+  labs(title = "Percentage of Foreign Born Population By Household",
+       x = "Year",
+       y = "%",
+       caption = "Shaded area represents margin of error around the estimate")
 ```
 
 ### Challenge: Scatter Plot
