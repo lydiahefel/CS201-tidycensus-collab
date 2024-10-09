@@ -341,12 +341,11 @@ Exploring the relationship between (insert variable here) and (insert variable h
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
-oahu_foreign_born_total_household_income <- get_acs(
+iowa_foreign_born_college_education <- get_acs(
   geography = "tract",
   variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P",
-                percent_of_total_household_income = "DP03_0051P"),
-  state = "HI",
-  county = "Honolulu",
+                percent_of_indivivuals_with_bachelors_degree_or_higher = "DP02_0065P"),
+  state = "IA",
   #geometry = TRUE,
   output = "wide",
   year = 2021
@@ -354,7 +353,7 @@ oahu_foreign_born_total_household_income <- get_acs(
   dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 
 
-ggplot(oahu_family_poverty_college_education, aes(x = percent_of_foreign_born_population_by_household, y = percent_of_total_household_incomeE)) +
+ggplot(iowa_foreign_born_college_education, aes(x = percent_of_foreign_born_population_by_householdE, y = percent_of_indivivuals_with_bachelors_degree_or_higherE)) +
   geom_point() +
   geom_smooth() +
   stat_cor() +

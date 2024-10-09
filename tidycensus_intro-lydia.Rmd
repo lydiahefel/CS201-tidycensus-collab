@@ -301,8 +301,23 @@ girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 ### Challenge: Time Series
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+years <- 2010:2019
+names(years) <- years
+
+foreign_born_2009_2019 <- map_dfr(years, ~{
+  get_acs(
+    geography = "state",
+    variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
+    state = "IA",
+    year = .x,
+    survey = "acs1"
+  )
+}, .id = "year")
 
 
+ggplot(foreign_born_2009_2019, aes(x = year, y = estimate, group = 1)) + 
+  geom_line() + 
+  geom_point()
 ```
 
 ### Challenge: Scatter Plot
