@@ -321,7 +321,7 @@ ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) +
 ```
 
 ```{r}
-ggplot(foreign_born_2009_2019, aes(x = year, y = estimate, group = 1)) + 
+ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) + 
   geom_ribbon(aes(ymax = estimate + moe, ymin = estimate - moe), 
               fill = "steelblue",
               alpha = 0.4) + 
