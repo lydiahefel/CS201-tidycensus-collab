@@ -280,7 +280,7 @@ dplyr::mutate(NAME = gsub("Census Tract 4904; O'Brien County; Iowa", "Census Tra
 
 ```
 
-### Challenge: Mapping 
+### Challenge: Mapping
 
 Visual 1
 
@@ -358,7 +358,6 @@ iowa_foreign_born_college_education <- get_acs(
   output = "wide",
   year = 2021
 ) %>% 
-  dplyr::filter(GEOID != "15003981200" & GEOID !="15003981900")
 
 
 ggplot(iowa_foreign_born_college_education, aes(x = percent_of_foreign_born_population_by_householdE, y = percent_of_indivivuals_with_bachelors_degree_or_higherE)) +
@@ -371,3 +370,7 @@ ggplot(iowa_foreign_born_college_education, aes(x = percent_of_foreign_born_popu
 ### Challenge: Describe what you found
 
 The map in Visual 1 shows the percent increase in the foreign born population across Iowa. The darker areas represent less increase in foreign born populations, while the lighter areas represent a higher increase. A large majority of Iowa has very little to no increase in foreign born population. There are few continues with very high increases in the foreign born population. Some data is not applicable for several counties.
+
+Visual 2 the time series map shows the changes in percentage of foreign born population by household from 2012-2022. While most of the change stays consistently below 5%, in 2019 there is a drastic jump to \~37% increase. After further research, we concluded this was possibly due to an increase in job opportunity in the meat packing industry for foreign-born workers. It is important to note that the estimated percentage (y-axis) is based on the **percent increase each year,** not the percent of foreign-born out of the **total** population.
+
+Visual 3 is the same time series map with the addition of margin of error (shown in blue), which is relatively low. This could be contributed to the larger population size since we visualized data for the entire state, not individual counties.
