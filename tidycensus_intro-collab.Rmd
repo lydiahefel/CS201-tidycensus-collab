@@ -280,7 +280,9 @@ dplyr::mutate(NAME = gsub("Census Tract 4904; O'Brien County; Iowa", "Census Tra
 
 ```
 
-### Challenge: Mapping
+### Challenge: Mapping 
+
+Visual 1
 
 ```{r, message=FALSE, warning=FALSE, results="hide"}
 
@@ -299,6 +301,8 @@ girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 ```
 
 ### Challenge: Time Series
+
+Visual 2
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 years <- 2012:2022
@@ -320,6 +324,8 @@ ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) +
   geom_point()
 ```
 
+Visual 3
+
 ```{r}
 ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) + 
   geom_ribbon(aes(ymax = estimate + moe, ymin = estimate - moe), 
@@ -338,6 +344,8 @@ ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) +
 ### Challenge: Scatter Plot
 
 Exploring the relationship between (insert variable here) and (insert variable here) with a scatter plot
+
+Visual 4
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 
@@ -361,3 +369,5 @@ ggplot(iowa_foreign_born_college_education, aes(x = percent_of_foreign_born_popu
 ```
 
 ### Challenge: Describe what you found
+
+The map in Visual 1 shows the percent increase in the foreign born population across Iowa. The darker areas represent less increase in foreign born populations, while the lighter areas represent a higher increase. A large majority of Iowa has very little to no increase in foreign born population. There are few continues with very high increases in the foreign born population. Some data is not applicable for several counties.
