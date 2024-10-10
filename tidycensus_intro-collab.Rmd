@@ -264,7 +264,7 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 iowa_foreign_born_population <- get_acs(
   geography = "tract",
-  variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
+  variables = c(percent_of_foreign_born_population_by_household = "DP02_0094P"),
   state = "IA",
   geometry = TRUE,
   output = "wide",
@@ -305,16 +305,16 @@ girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 Visual 2
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-years <- 2012:2022
+years <- 2009:2019
 names(years) <- years
 
 foreign_born_2012_2022 <- map_dfr(years, ~{
   get_acs(
     geography = "state",
-    variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
+    variables = c(percent_of_foreign_born_population_by_household = "DP02_0094P"),
     state = "IA",
     year = .x,
-    survey = "acs5"
+    survey = "acs1"
   )
 }, .id = "year")
 
@@ -374,3 +374,5 @@ The map in Visual 1 shows the percent increase in the foreign born population ac
 Visual 2 the time series map shows the changes in percentage of foreign born population by household from 2012-2022. While most of the change stays consistently below 5%, in 2019 there is a drastic jump to \~37% increase. After further research, we concluded this was possibly due to an increase in job opportunity in the meat packing industry for foreign-born workers. It is important to note that the estimated percentage (y-axis) is based on the **percent increase each year,** not the percent of foreign-born out of the **total** population.
 
 Visual 3 is the same time series map with the addition of margin of error (shown in blue), which is relatively low. This could be contributed to the larger population size since we visualized data for the entire state, not individual counties.
+
+The scatter plot in Visual 4 displays a comparison of the percent of foreign born population by household to the
