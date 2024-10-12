@@ -264,11 +264,11 @@ Investigating (insert variable here) on Oahu at the census tract level.
 
 iowa_foreign_born_population <- get_acs(
   geography = "tract",
-  variables = c(percent_of_foreign_born_population_by_household = "DP02_0094P"),
+  variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
   state = "IA",
   geometry = TRUE,
   output = "wide",
-  year = 2022) %>% 
+  year = 2018) %>% 
   
 dplyr::mutate(NAME = gsub("Census Tract 4901; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>%
 
@@ -305,16 +305,16 @@ girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 Visual 2
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-years <- 2009:2019
+years <- 2012:2022
 names(years) <- years
 
 foreign_born_2012_2022 <- map_dfr(years, ~{
   get_acs(
     geography = "state",
-    variables = c(percent_of_foreign_born_population_by_household = "DP02_0094P"),
+    variables = c(percent_of_foreign_born_population_by_household = "DP02_0109p"),
     state = "IA",
     year = .x,
-    survey = "acs1"
+    survey = "acs5"
   )
 }, .id = "year")
 
