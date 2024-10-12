@@ -268,16 +268,17 @@ iowa_foreign_born_population <- get_acs(
   state = "IA",
   geometry = TRUE,
   output = "wide",
-  year = 2018) %>% 
+  year = 2018) 
   
-dplyr::mutate(NAME = gsub("Census Tract 4901; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>%
+#dplyr::mutate(NAME = gsub("Census Tract 4901; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>%
 
-dplyr::mutate(NAME = gsub("Census Tract 4902; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
+#dplyr::mutate(NAME = gsub("Census Tract 4902; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
 
-dplyr::mutate(NAME = gsub("Census Tract 4903; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
+#dplyr::mutate(NAME = gsub("Census Tract 4903; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME)) %>% 
   
-dplyr::mutate(NAME = gsub("Census Tract 4904; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME))
+#dplyr::mutate(NAME = gsub("Census Tract 4904; O'Brien County; Iowa", "Census Tract 4903; OBrien County; Iowa", NAME))
 
+iowa_foreign_born_population$NAME <- str_replace(iowa_foreign_born_population$NAME, "O'Brien", "OBrien")
 ```
 
 ### Challenge: Mapping
@@ -305,21 +306,21 @@ girafe(ggobj = foreign_born_population_map, width = 700, height = 400)
 Visual 2
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-years <- 2012:2022
+years <- 2008:2018
 names(years) <- years
 
-foreign_born_2012_2022 <- map_dfr(years, ~{
+foreign_born_2008_2018 <- map_dfr(years, ~{
   get_acs(
     geography = "state",
-    variables = c(percent_of_foreign_born_population_by_household = "DP02_0109p"),
+    variables = c(percent_of_foreign_born_population_by_household = "DP02_0109P"),
     state = "IA",
     year = .x,
-    survey = "acs5"
+    survey = "acs1"
   )
 }, .id = "year")
 
 
-ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) + 
+ggplot(foreign_born_2008_2018, aes(x = year, y = estimate, group = 1)) + 
   geom_line() + 
   geom_point()
 ```
@@ -327,7 +328,7 @@ ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) +
 Visual 3
 
 ```{r}
-ggplot(foreign_born_2012_2022, aes(x = year, y = estimate, group = 1)) + 
+ggplot(foreign_born_2008_2018, aes(x = year, y = estimate, group = 1)) + 
   geom_ribbon(aes(ymax = estimate + moe, ymin = estimate - moe), 
               fill = "steelblue",
               alpha = 0.4) + 
@@ -356,8 +357,7 @@ iowa_foreign_born_college_education <- get_acs(
   state = "IA",
   #geometry = TRUE,
   output = "wide",
-  year = 2021
-) %>% 
+  year = 2018)
 
 
 ggplot(iowa_foreign_born_college_education, aes(x = percent_of_foreign_born_population_by_householdE, y = percent_of_indivivuals_with_bachelors_degree_or_higherE)) +
