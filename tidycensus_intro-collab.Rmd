@@ -369,10 +369,10 @@ ggplot(iowa_foreign_born_college_education, aes(x = percent_of_foreign_born_popu
 
 ### Challenge: Describe what you found
 
-The map in Visual 1 shows the percent increase in the foreign born population across Iowa. The darker areas represent less increase in foreign born populations, while the lighter areas represent a higher increase. A large majority of Iowa has very little to no increase in foreign born population. There are few continues with very high increases in the foreign born population. Some data is not applicable for several counties.
+The map in Visual 1 shows the percent of foreign born population across Iowa. The darker areas represent a lower percent of the population that is foreign born, while the lighter areas represent a higher percent of the population that is foreign born. The vast majority of Iowa has under 50% of the population that foreign born, very few counties have above 50%. Some data is not applicable for several counties.
 
 Visual 2 is a time series map which shows the estimated percentage of the foreign-born population in Iowa overtime. From 2008-2018 there are some peaks and lows but overall the percentage as gone down. The largest foreign-born population percentage occurred in 2010 at about 3.6% and the lowest in 2017 at 1%.
 
 Visual 3 is the same time series map with the addition of margin of error (shown in blue), which is about 1%. While the margin of error seems low, in proportion with the data it is high as all the data ranges between 1-3%.
 
-The scatter plot in Visual 4 displays a comparison of the percent of foreign born population by household to the
+The scatter plot in Visual 4 displays a comparison of the percent of foreign born population by household to the percent of individuals with bachelors degrees or higher in Iowa. The correlation between the two variables is much closer to 0 than 1, which means there is little to no statistical significance that the percent of foreign born population in an area has any impact on the percent of individuals with bachelors degrees or higher in that same area.
